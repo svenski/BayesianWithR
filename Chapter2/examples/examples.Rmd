@@ -1,0 +1,50 @@
+Chapter 2 Examples
+==================
+
+```{r 2.3, echo = FALSE, message = FALSE, warning = FALSE}
+library(LearnBayes)
+library(lattice)
+
+p = seq(0.05, 0.95, by = 0.1)
+prior = c(1, 5.2, 8, 7.2, 4.6, 2.1, 0.7, 0.1, 0, 0)
+prior = prior/sum(prior)
+plot(p, prior, type = "h", ylab="Prior Probability")
+
+data <- c(11, 16)
+
+post <- pdisc(p, prior, data)
+
+ppp <- round(cbind(p, prior, post), 2)
+
+pd <- data.frame("prior", p, prior)
+pt <- data.frame("posterior", p, post)
+
+nn <- c("TYPE", "P", "Probability")
+
+names(pd) <- nn
+names(pt) <- nn
+
+p.and.p <- rbind(pd, pt)
+
+xyplot(Probability ~ P | TYPE, 
+       data = p.and.p, 
+       layout =c(1,2),
+       type = "h", 
+       lwd = 3,
+       col = "black")
+
+
+
+
+```
+
+```{r 2.4, echo = FALSE, message = FALSE, warning = FALSE}
+
+quantile1=list(p=.5,x=.3)
+quantile2=list(p=.9,x=.5)
+beta.select(quantile1, quantile2)
+
+```
+
+
+
